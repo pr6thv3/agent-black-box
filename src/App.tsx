@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ShieldCheck } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Dashboard } from './components/Dashboard';
 import { SubmitCase } from './components/SubmitCase';
@@ -15,19 +16,13 @@ export const App: React.FC = () => {
   const [cases, setCases] = useState(store.getCases());
   const [ledger, setLedger] = useState(store.getLedger());
   const [anchors, setAnchors] = useState(store.getAnchors());
-  const [auditResult, setAuditResult] = useState<VerificationResult>({
-    isValid: true,
-    totalEntries: 0,
-  });
+  const [auditResult, setAuditResult] = useState<VerificationResult>({ isValid: true, totalEntries: 0 });
 
   const runAudit = async () => {
-    const currentLedger = store.getLedger();
-    const result = await verifyLedger(currentLedger);
-    setAuditResult(result);
+    setAuditResult(await verifyLedger(store.getLedger()));
   };
 
   useEffect(() => {
-    // Initialize initial synthetic cases if empty
     store.initSeed().then(() => {
       setCases(store.getCases());
       setLedger(store.getLedger());
@@ -35,7 +30,6 @@ export const App: React.FC = () => {
       runAudit();
     });
 
-    // Subscribe to store updates
     const unsubscribe = store.subscribe(() => {
       setCases(store.getCases());
       setLedger(store.getLedger());
@@ -54,7 +48,7 @@ export const App: React.FC = () => {
   ).length;
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#090d16' }}>
+    <div className="app-shell">
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -64,57 +58,27 @@ export const App: React.FC = () => {
         setCurrentRole={setCurrentRole}
       />
 
-      <main className="container" style={{ flex: 1, padding: '2rem 1.25rem' }}>
-        {activeTab === 'dashboard' && (
-          <Dashboard
-            cases={cases}
-            ledger={ledger}
-            anchors={anchors}
-            auditStatus={auditResult}
-            setActiveTab={setActiveTab}
-          />
-        )}
+      <div className="app-content">
+        <main className="page-container">
+          {activeTab === 'dashboard' && (
+            <Dashboard cases={cases} ledger={ledger} anchors={anchors} auditStatus={auditResult} setActiveTab={setActiveTab} />
+          )}
+          {activeTab === 'submit' && <SubmitCase onCaseSubmitted={() => {}} />}
+          {activeTab === 'review' && <ReviewQueue cases={cases} ledger={ledger} currentRole={currentRole} />}
+          {activeTab === 'ledger' && <LedgerView ledger={ledger} />}
+          {activeTab === 'integrity' && (
+            <IntegrityPanel ledger={ledger} anchors={anchors} auditResult={auditResult} onAuditTriggered={runAudit} />
+          )}
+        </main>
 
-        {activeTab === 'submit' && (
-          <SubmitCase
-            onCaseSubmitted={() => {
-              // Option to switch to ledger or review
-            }}
-          />
-        )}
-
-        {activeTab === 'review' && (
-          <ReviewQueue
-            cases={cases}
-            ledger={ledger}
-            currentRole={currentRole}
-          />
-        )}
-
-        {activeTab === 'ledger' && (
-          <LedgerView ledger={ledger} />
-        )}
-
-        {activeTab === 'integrity' && (
-          <IntegrityPanel
-            ledger={ledger}
-            anchors={anchors}
-            auditResult={auditResult}
-            onAuditTriggered={runAudit}
-          />
-        )}
-      </main>
-
-      <footer style={{ borderTop: '1px solid #1e293b', padding: '1.25rem 0', background: '#090d16', marginTop: 'auto' }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <div>
-            AgentBlackBox // NEURALDAO 2.0 • AI/ML + Blockchain Flight Recorder
+        <footer className="app-footer">
+          <div>AgentBlackBox • autonomous decision flight recorder</div>
+          <div className="footer-proof">
+            <ShieldCheck size={13} />
+            SHA-256 chain <span>•</span> Ethereum Sepolia anchor
           </div>
-          <div>
-            SHA-256 Hash Chain Verified • Ethereum Testnet Anchor
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 };
