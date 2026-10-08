@@ -144,10 +144,10 @@ export const IntegrityPanel: React.FC<IntegrityPanelProps> = ({
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f8fafc' }}>
                 Ledger Integrity & Blockchain Anchoring
               </h2>
-              <span className="badge badge-purple">M4 + M6 + M7</span>
+              <span className="badge badge-purple">ENTERPRISE AUDIT ENGINE</span>
             </div>
             <p style={{ fontSize: '0.875rem', color: '#94a3b8' }}>
-              Recompute the mathematical SHA-256 hash chain, simulate malicious operator database tampering, and verify against public Ethereum testnet anchors.
+              Cryptographic sequential verification, adversarial red-team simulations, and public Ethereum smart contract anchoring.
             </p>
           </div>
 
@@ -162,7 +162,7 @@ export const IntegrityPanel: React.FC<IntegrityPanelProps> = ({
               title="Restore initial deterministic seed ledger"
             >
               <RotateCcw size={14} />
-              <span>Reset demo</span>
+              <span>Restore Baseline Checkpoint</span>
             </button>
 
             {/* Existing internal Verify Ledger Integrity unchanged */}
@@ -235,11 +235,11 @@ export const IntegrityPanel: React.FC<IntegrityPanelProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Flame size={18} color="#f43f5e" />
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f8fafc' }}>
-                Tamper Demonstration Lab (The Wow Moment)
+                Adversarial Resilience Lab (Red Team Testing)
               </h3>
             </div>
             <p style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '0.25rem' }}>
-              Simulate a rogue database administrator attempting to alter records directly in SQL.
+              Simulate insider threat vectors attempting unauthorized mutations directly on the storage layer.
             </p>
           </div>
 
@@ -299,12 +299,12 @@ export const IntegrityPanel: React.FC<IntegrityPanelProps> = ({
           </div>
 
           <div style={{ padding: '0.75rem', background: '#0d1527', borderRadius: '8px', border: '1px solid #1e293b', fontSize: '0.8rem', color: '#94a3b8' }}>
-            <strong>Demo Walkthrough:</strong>
+            <strong>Auditor Verification Protocol:</strong>
             <ol style={{ paddingLeft: '1.25rem', marginTop: '0.35rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-              <li>Notice ledger is currently 100% verified (Green).</li>
-              <li>Click <em>Simulate Naive Tamper</em> → Internal chain breaks (Red).</li>
-              <li>Click <em>Simulate Stealth Tamper</em> → Internal chain passes (Green), but On-Chain Anchor fails (Red)!</li>
-              <li>Click <em>Undo Tamper</em> → Both checks pass (Green)!</li>
+              <li>Baseline state: cryptographic ledger is 100% verified (Green).</li>
+              <li>Simulate Naive Tamper &rarr; Internal SHA-256 chain breaks (Red).</li>
+              <li>Simulate Stealth Tamper &rarr; Internal chain passes (Green), but Public Anchor exposes divergence (Red)!</li>
+              <li>Undo Tamper &rarr; Both verification levels return to Green!</li>
             </ol>
           </div>
         </div>

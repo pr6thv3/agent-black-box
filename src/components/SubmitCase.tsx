@@ -78,13 +78,13 @@ export const SubmitCase: React.FC<SubmitCaseProps> = ({ onCaseSubmitted }) => {
               Submit Refund Case
             </h2>
             <p style={{ fontSize: '0.875rem', color: '#94a3b8' }}>
-              Select a pre-configured hackathon demo scenario or test custom customer parameters.
+              Ingest real-time refund claims or test synthetic fraud and policy edge-case vectors.
             </p>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase' }}>
-              Load Demo Presets:
+              Claim Templates:
             </span>
             <button type="button" className="btn btn-secondary" style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }} onClick={() => loadScenario(0)}>
               Case 1: Auto-Approve (₹450)
